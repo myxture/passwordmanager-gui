@@ -265,6 +265,9 @@
       <property name="text">
        <string>Store it!</string>
       </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QPushButton" name="pushButton_new_browseFile">
       <property name="geometry">
@@ -278,14 +281,17 @@
       <property name="text">
        <string>Browse...</string>
       </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QLabel" name="label_new_messagePasswordToStore">
       <property name="geometry">
        <rect>
         <x>340</x>
-        <y>50</y>
-        <width>71</width>
-        <height>61</height>
+        <y>70</y>
+        <width>140</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
@@ -296,9 +302,9 @@
       <property name="geometry">
        <rect>
         <x>340</x>
-        <y>130</y>
-        <width>71</width>
-        <height>61</height>
+        <y>150</y>
+        <width>140</width>
+        <height>20</height>
        </rect>
       </property>
       <property name="text">
@@ -313,7 +319,7 @@
         <x>10</x>
         <y>40</y>
         <width>340</width>
-        <height>310</height>
+        <height>290</height>
        </rect>
       </property>
      </widget>
@@ -404,7 +410,7 @@
        <string>Browse...</string>
       </property>
       <property name="autoDefault">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="default">
        <bool>false</bool>
@@ -485,6 +491,9 @@
       <property name="text">
        <string>Generate!</string>
       </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
      </widget>
      <widget class="QPushButton" name="pushButton_generate_storePassword">
       <property name="enabled">
@@ -504,6 +513,22 @@
       <property name="checkable">
        <bool>false</bool>
       </property>
+      <property name="autoDefault">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_message">
+      <property name="geometry">
+       <rect>
+        <x>-40</x>
+        <y>280</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
      <zorder>lineEdit_generate_length</zorder>
      <zorder>label_generate_generatedPassword</zorder>
@@ -511,20 +536,8 @@
      <zorder>pushButton_generate_generatePassword</zorder>
      <zorder>pushButton_generate_storePassword</zorder>
      <zorder>label_generate_length</zorder>
+     <zorder>label_message</zorder>
     </widget>
-   </widget>
-   <widget class="QLabel" name="label_message">
-    <property name="geometry">
-     <rect>
-      <x>136</x>
-      <y>460</y>
-      <width>501</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -537,19 +550,23 @@
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="sizeGripEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
  <tabstops>
-  <tabstop>radioButton_new</tabstop>
-  <tabstop>radioButton_read</tabstop>
-  <tabstop>radioButton_generate</tabstop>
-  <tabstop>pushButton_new_browseFile</tabstop>
   <tabstop>lineEdit_new_filename</tabstop>
   <tabstop>lineEdit_new_passwordToStore</tabstop>
   <tabstop>lineEdit_new_passwordToStoreConfirm</tabstop>
   <tabstop>lineEdit_new_masterPassword</tabstop>
   <tabstop>lineEdit_new_masterPasswordConfirm</tabstop>
   <tabstop>pushButton_new_storePassword</tabstop>
+  <tabstop>pushButton_new_browseFile</tabstop>
+  <tabstop>radioButton_new</tabstop>
+  <tabstop>radioButton_read</tabstop>
+  <tabstop>radioButton_generate</tabstop>
   <tabstop>lineEdit_read_currentDir</tabstop>
   <tabstop>pushButton_read_browseDir</tabstop>
   <tabstop>listWidget_read_fileList</tabstop>

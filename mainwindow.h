@@ -4,16 +4,18 @@
 #define CHAR_LOWEST 33
 #define CHAR_HIGHEST 126
 
-#include <QMainWindow>
-#include <QStackedWidget>
-#include <QFile>
 #include <QDir>
-#include <QListWidget>
+#include <QFile>
 #include <QFileDialog>
+#include <QListWidget>
+#include <QMainWindow>
+#include <QMessageBox>
+#include <QStackedWidget>
+#include <QStatusBar>
 
-#include <string>
 #include <fstream>
 #include <random>
+#include <string>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

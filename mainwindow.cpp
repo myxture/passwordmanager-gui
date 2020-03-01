@@ -19,10 +19,21 @@ void MainWindow::on_radioButton_new_toggled(bool checked) {
 }
 
 void MainWindow::on_lineEdit_new_filename_editingFinished() {
-    if (!ui->lineEdit_new_filename->text().endsWith(".pwd"))
-        ui->lineEdit_new_filename->setText(ui->lineEdit_new_filename->text() + ".pwd");
-    if (QDir::isRelativePath(ui->lineEdit_new_filename->text()))
-        ui->lineEdit_new_filename->setText(QDir::currentPath() + "/" + ui->lineEdit_new_filename->text());
+    QString filename = ui->lineEdit_new_filename->text();
+    if (!filename.endsWith(".pwd"))
+        filename += ".pwd";
+    if (QDir::isRelativePath(filename))
+        filename = QDir::currentPath() + "/" + filename;
+    ui->lineEdit_new_filename->blockSignals(true);
+    if (QFile::exists(filename) &&
+            QMessageBox::question(ui->stackedWidget,
+                                  "Confirm overwrite file",
+                                  "The file " + filename + " already exists. Do you want to overwrite it?",
+                                  QMessageBox::Yes | QMessageBox::No,
+                                  QMessageBox::No) != QMessageBox::Yes)
+        filename = "";
+    ui->lineEdit_new_filename->blockSignals(false);
+    ui->lineEdit_new_filename->setText(filename);
 }
 
 void MainWindow::on_pushButton_new_browseFile_clicked() {
@@ -31,24 +42,24 @@ void MainWindow::on_pushButton_new_browseFile_clicked() {
 
 void MainWindow::on_pushButton_new_storePassword_clicked() {
     if (ui->lineEdit_new_filename->text() == "") {
-        ui->label_message->setText("Empty filename!");
+        ui->statusbar->showMessage("Empty filename!", 0);
         return;
     }
     if (ui->lineEdit_new_passwordToStore->text() == "" ||
         ui->lineEdit_new_passwordToStoreConfirm->text() == "" ||
         ui->lineEdit_new_masterPassword->text() == "" ||
         ui->lineEdit_new_masterPasswordConfirm->text() == "") {
-        ui->label_message->setText("Empty password field!");
+        ui->statusbar->showMessage("Empty password field!", 0);
         return;
     }
     if (ui->lineEdit_new_passwordToStore->text() != ui->lineEdit_new_passwordToStoreConfirm->text() ||
         ui->lineEdit_new_masterPassword->text() != ui->lineEdit_new_masterPasswordConfirm->text()) {
-        ui->label_message->setText("Passwords don't match!");
+        ui->statusbar->showMessage("Passwords don't match!", 0);
         return;
     }
     std::ofstream passwordFile{ui->lineEdit_new_filename->text().toStdString()};
     if (!passwordFile.is_open()) {
-        ui->label_message->setText("Could not write to file!");
+        ui->statusbar->showMessage("Could not write to file!", 0);
         return;
     }
     std::string masterPassword{ui->lineEdit_new_masterPassword->text().toStdString()};
@@ -60,7 +71,7 @@ void MainWindow::on_pushButton_new_storePassword_clicked() {
                              passwordToStore[i] + masterPassword[i] - CHAR_HIGHEST - 1 :
                              passwordToStore[i] + masterPassword[i] - CHAR_LOWEST;
     passwordFile << passwordToStore;
-    ui->label_message->setText("Password successully saved.");
+    ui->statusbar->showMessage("Password successfully saved.", 0);
 }
 
 void MainWindow::on_lineEdit_new_passwordToStore_editingFinished() {
@@ -110,7 +121,7 @@ void MainWindow::on_listWidget_read_fileList_itemClicked(QListWidgetItem *item) 
 void MainWindow::on_lineEdit_read_masterPassword_editingFinished() {
     std::ifstream passwordFile{(ui->lineEdit_read_currentDir->text() + "/" + ui->listWidget_read_fileList->currentItem()->text()).toStdString()};
     if (!passwordFile.is_open()) {
-        ui->label_message->setText("Could not read from file!");
+        ui->statusbar->showMessage("Could not read from file!", 0);
         return;
     }
     std::string codedPassword{std::istreambuf_iterator<char>{passwordFile}, std::istreambuf_iterator<char>{}};
