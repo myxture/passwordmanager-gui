@@ -83,7 +83,7 @@ void MainWindow::on_lineEdit_new_passwordToStore_editingFinished() {
 }
 
 void MainWindow::on_lineEdit_new_passwordToStoreConfirm_editingFinished() {
-    MainWindow::on_lineEdit_new_passwordToStore_editingFinished();
+    on_lineEdit_new_passwordToStore_editingFinished();
 }
 
 void MainWindow::on_lineEdit_new_masterPassword_editingFinished() {
@@ -95,7 +95,7 @@ void MainWindow::on_lineEdit_new_masterPassword_editingFinished() {
 }
 
 void MainWindow::on_lineEdit_new_masterPasswordConfirm_editingFinished() {
-    MainWindow::on_lineEdit_new_masterPassword_editingFinished();
+    on_lineEdit_new_masterPassword_editingFinished();
 }
 
 void MainWindow::on_radioButton_read_toggled(bool checked) {
@@ -142,7 +142,7 @@ void MainWindow::on_radioButton_generate_toggled(bool checked) {
     }
 }
 
-void MainWindow::on_lineEdit_generate_length_editingFinished() {
+void MainWindow::on_pushButton_generate_generatePassword_clicked() {
     ui->pushButton_generate_storePassword->setEnabled(true);
     int n = ui->lineEdit_generate_length->text().toInt();
     std::mt19937 engine{std::random_device{}()};
@@ -154,10 +154,6 @@ void MainWindow::on_lineEdit_generate_length_editingFinished() {
             password += (char) dist(engine);
     } while (numberOfNonAlphanumeric(password) > 2);
     ui->lineEdit_generate_generatedPassword->setText(QString::fromStdString(password));
-}
-
-void MainWindow::on_pushButton_generate_generatePassword_clicked() {
-    MainWindow::on_lineEdit_generate_length_editingFinished();
 }
 
 void MainWindow::on_pushButton_generate_storePassword_clicked() {

@@ -41,10 +41,6 @@ private slots:
 
     void on_lineEdit_read_masterPassword_editingFinished();
 
-    void on_lineEdit_generate_length_editingFinished();
-
-    void on_pushButton_generate_generatePassword_clicked();
-
     void on_pushButton_generate_storePassword_clicked();
 
     void on_lineEdit_read_currentDir_editingFinished();
@@ -62,6 +58,8 @@ private slots:
     void on_lineEdit_new_masterPasswordConfirm_editingFinished();
 
     void on_lineEdit_new_filename_editingFinished();
+
+    void on_pushButton_generate_generatePassword_clicked();
 
 private:
     Ui::MainWindow *ui;
