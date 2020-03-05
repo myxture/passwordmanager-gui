@@ -5,6 +5,7 @@
 #define CHAR_HIGHEST 126
 
 #include <QDir>
+#include <QElapsedTimer>
 #include <QFile>
 #include <QFileDialog>
 #include <QListWidget>
@@ -61,8 +62,11 @@ private slots:
 
     void on_pushButton_generate_generatePassword_clicked();
 
+    void on_lineEdit_generate_length_editingFinished();
+
 private:
     Ui::MainWindow *ui;
+    QElapsedTimer timer;
     void listPasswordFiles(const QString &dir);
 };
 

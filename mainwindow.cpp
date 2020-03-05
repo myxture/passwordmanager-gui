@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
     ui->setupUi(this);
+    timer.start();
 }
 
 MainWindow::~MainWindow() {
@@ -142,18 +143,25 @@ void MainWindow::on_radioButton_generate_toggled(bool checked) {
     }
 }
 
+void MainWindow::on_lineEdit_generate_length_editingFinished() {
+    on_pushButton_generate_generatePassword_clicked();
+}
+
 void MainWindow::on_pushButton_generate_generatePassword_clicked() {
-    ui->pushButton_generate_storePassword->setEnabled(true);
-    int n = ui->lineEdit_generate_length->text().toInt();
-    std::mt19937 engine{std::random_device{}()};
-    std::uniform_int_distribution<int> dist{CHAR_LOWEST, CHAR_HIGHEST};
-    std::string password;
-    do {
-        password = "";
-        for (int i = 0; i < n; ++i)
-            password += (char) dist(engine);
-    } while (numberOfNonAlphanumeric(password) > 2);
-    ui->lineEdit_generate_generatedPassword->setText(QString::fromStdString(password));
+    if (timer.elapsed() > 100) {
+        ui->pushButton_generate_storePassword->setEnabled(true);
+        int n = ui->lineEdit_generate_length->text().toInt();
+        std::mt19937 engine{std::random_device{}()};
+        std::uniform_int_distribution<int> dist{CHAR_LOWEST, CHAR_HIGHEST};
+        std::string password;
+        do {
+            password = "";
+            for (int i = 0; i < n; ++i)
+                password += (char) dist(engine);
+        } while (numberOfNonAlphanumeric(password) > 2);
+        ui->lineEdit_generate_generatedPassword->setText(QString::fromStdString(password));
+    }
+    timer.restart();
 }
 
 void MainWindow::on_pushButton_generate_storePassword_clicked() {
