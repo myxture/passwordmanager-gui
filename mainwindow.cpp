@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
     ui->setupUi(this);
+    ui->lineEdit_new_filename->setFocus();
     timer.start();
 }
 
@@ -104,6 +105,8 @@ void MainWindow::on_radioButton_read_toggled(bool checked) {
         ui->stackedWidget->setCurrentIndex(1);
         if (ui->lineEdit_read_currentDir->text() == "")
             listPasswordFiles(QDir::currentPath());
+        else if (ui->stackedWidget->currentIndex() != -1)
+            ui->lineEdit_read_masterPassword->setFocus();
     }
 }
 
@@ -117,6 +120,7 @@ void MainWindow::on_pushButton_read_browseDir_clicked() {
 
 void MainWindow::on_listWidget_read_fileList_itemClicked(QListWidgetItem *item) {
     ui->lineEdit_read_masterPassword->setEnabled(item->text() != "<no passwords>");
+    ui->lineEdit_read_masterPassword->setFocus();
 }
 
 void MainWindow::on_lineEdit_read_masterPassword_editingFinished() {
